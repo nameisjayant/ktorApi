@@ -1,5 +1,7 @@
 package com.nameisjayant
 
+import com.nameisjayant.base.BaseApplication
+import com.nameisjayant.features.user.routes.configureUserRoutes
 import com.nameisjayant.plugins.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -11,9 +13,27 @@ fun main() {
 }
 
 fun Application.module() {
+    // configure koin
+    configureKoin()
+
+    val component = BaseApplication()
+    val userRepository = component.userRepository
+
+    // configure serialization/content negotiation
     configureSerialization()
+
+    // configure logger
     configureMonitoring()
+
+    // configure swagger for api documentation
     configureHTTP()
+
+    // configure jwt token
     configureSecurity()
+
+    // configure endpoints
     configureRouting()
+
+    // routes
+    configureUserRoutes(userRepository)
 }

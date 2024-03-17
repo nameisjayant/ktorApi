@@ -8,10 +8,12 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
 
+private const val API = "api"
+
 fun Application.configureRouting() {
     install(Resources)
 }
 
 @Serializable
-@Resource("/articles")
-class Articles(val sort: String? = "new")
+@Resource("$API/user")
+object UserRoute

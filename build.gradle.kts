@@ -2,6 +2,7 @@ val ktorVersion: String by project
 val kotlinVersion: String by project
 val logbackVersion: String by project
 val kmongoVersion: String by project
+val koinKtor:String by project
 
 plugins {
     kotlin("jvm") version "1.9.23"
@@ -56,4 +57,8 @@ dependencies {
     // unit tests
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+
+    // koin ktor
+    implementation("io.insert-koin:koin-ktor:$koinKtor")
+
 }
