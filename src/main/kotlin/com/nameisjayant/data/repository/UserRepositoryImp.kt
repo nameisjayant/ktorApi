@@ -31,4 +31,8 @@ class UserRepositoryImp(
     override suspend fun deleteUser(id: String?): Long? {
         return 0
     }
+
+    override suspend fun getAllEmail(): List<String>? {
+        return db.userCollection.find().toList().map { it.email ?: "" }
+    }
 }

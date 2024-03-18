@@ -8,5 +8,7 @@ interface UserRepository {
     suspend fun loginUser(user: User?): User?
 
     suspend fun deleteUser(id: String?): Long?
+    suspend fun getAllEmail():List<String>?
+
 
 }
