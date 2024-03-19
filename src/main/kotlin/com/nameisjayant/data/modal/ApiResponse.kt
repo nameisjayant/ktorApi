@@ -1,4 +1,4 @@
-package com.nameisjayant.utils
+package com.nameisjayant.data.modal
 
 import io.ktor.http.*
 

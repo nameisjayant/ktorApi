@@ -7,7 +7,7 @@ import org.litote.kmongo.reactivestreams.KMongo
 
 class DatabaseConnection {
 
-    private val client = KMongo.createClient().coroutine
+     val client = KMongo.createClient().coroutine
     private val database = client.getDatabase(System.getenv(Constant.DATABASE_NAME))
     val userCollection = database.getCollection<User>()
 }
