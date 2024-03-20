@@ -12,11 +12,12 @@ class UserRepositoryImp(
         try {
             val isInserted = db.userCollection.insertOne(user ?: User()).wasAcknowledged()
             if (isInserted)
-                return user
-        } catch (_: Exception) {
-            return null
+              return  user
+
+        } catch (e: Exception) {
+           return null
         }
-        return null
+        return  null
     }
 
     override suspend fun loginUser(user: User?): User? {
@@ -28,11 +29,24 @@ class UserRepositoryImp(
         }
     }
 
-    override suspend fun deleteUser(id: String?): Long? {
-        return 0
+    override suspend fun deleteUser(id: String?): Boolean {
+        return db.userCollection.deleteOneById(id ?: "").deletedCount == 1L
     }
 
-    override suspend fun getAllEmail(): List<String>? {
+    override suspend fun getAllEmail(): List<String> {
         return db.userCollection.find().toList().map { it.email ?: "" }
     }
+
+    override suspend fun updateUser(id: String?, user: User?): Boolean {
+        val query = Document("_id", id)
+        val update = Document(
+            "\$set",
+            Document("email", user?.email)
+                .append("password", user?.password)
+        )
+        val result = db.userCollection.updateOne(query, update)
+        return result.modifiedCount == 1L
+    }
+
+    override fun release() = db.client.close()
 }

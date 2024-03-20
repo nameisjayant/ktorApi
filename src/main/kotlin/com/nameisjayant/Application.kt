@@ -31,9 +31,6 @@ fun Application.module() {
     // configure jwt token
     configureSecurity()
 
-    // configure endpoints
-    configureRouting()
-
     // routes
     configureUserRoutes(userRepository)
 }
