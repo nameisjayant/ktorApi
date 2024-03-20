@@ -3,24 +3,21 @@ package com.nameisjayant.data.repository
 import com.nameisjayant.db.DatabaseConnection
 import com.nameisjayant.features.user.domain.modal.User
 import com.nameisjayant.features.user.domain.repository.UserRepository
-import com.nameisjayant.utils.ApiState
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import org.bson.Document
 
 class UserRepositoryImp(
     private val db: DatabaseConnection
 ) : UserRepository {
-    override suspend fun createUser(user: User?): Flow<ApiState<User>> = flow {
+    override suspend fun createUser(user: User?): User? {
         try {
             val isInserted = db.userCollection.insertOne(user ?: User()).wasAcknowledged()
             if (isInserted)
-                ApiState.Success(user)
-            else
-                ApiState.Error("User cannot created , Try requesting again")
+              return  user
+
         } catch (e: Exception) {
-            ApiState.Error("${e.message}")
+           return null
         }
+        return  null
     }
 
     override suspend fun loginUser(user: User?): User? {

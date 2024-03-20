@@ -78,7 +78,7 @@ suspend fun PipelineContext<Unit, ApplicationCall>.checkEmailAlreadyExists(email
                     message = "Email already Exists..!"
                 )
             )
+            throw IllegalArgumentException("Email already Exists..!")
         }
-        throw IllegalArgumentException("Email already Exists..!")
     }
 }
